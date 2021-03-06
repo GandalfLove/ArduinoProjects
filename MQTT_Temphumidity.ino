@@ -1,23 +1,23 @@
-#include <SPI.h>
-#include <Ethernet.h>
+#include <SPI.h> //Pins 11, 12, 13, 10, and 4 reserved for 
+#include <Ethernet.h> 
 #include <PubSubClient.h>
 #include <DHT.h>
-#define DHTPIN 2
+#define DHTPIN 2 //Assign DHT pin to 2
 #define DHTTYPE DHT11
-DHT dht(DHTPIN, DHTTYPE);
+DHT dht(DHTPIN, DHTTYPE); //DHT sensor configuration
 unsigned long readTime;
 
 //Ethernet Setup
 
-byte mac[]    =   {0xFE, 0x85, 0xC8, 0x32, 0xD7, 0x78};
-IPAddress ip      (192, 168, 0, 4);
-IPAddress server  (192, 168, 0, 170);
+byte mac[]    =   {0xFE, 0x85, 0xC8, 0x32, 0xD7, 0x78}; //Arduino Mac address
+IPAddress ip      (192, 168, 0, 4); //Arduino IP address for static IP assignment
+IPAddress server  (192, 168, 0, 170); //set to MQTT host server domain or IP
 char message_buff[100]; // this buffers our incoming messages so we can do something on certain commands
 
 EthernetClient ethClient;
 PubSubClient mqttclient(ethClient);
 
-//Callback Function
+//Callback Function 
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -39,6 +39,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println();
 }
 
+// Reconnect loop function
 
 void reconnect() {
   
@@ -74,7 +75,7 @@ void setup()
   Ethernet.begin(mac, ip);
 
   dht.begin();
-  // Allow the hardware to sort itself out
+  // Allow the hardware to initialize
   delay(2000);
   Serial.println(ip);
   readTime = 0;

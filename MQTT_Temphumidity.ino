@@ -3,15 +3,15 @@
 #include <PubSubClient.h>
 #include <DHT.h>
 #define DHTPIN 2 //Assign DHT pin to 2
-#define DHTTYPE DHT11
-DHT dht(DHTPIN, DHTTYPE); //DHT sensor configuration
+#define DHTTYPE DHT11 //Set DHT type to DHT11
+DHT dht = (DHTPIN, DHTTYPE); //DHT sensor configuration
 unsigned long readTime;
 
 //Ethernet Setup
 
 byte mac[]    =   {0xFE, 0x85, 0xC8, 0x32, 0xD7, 0x78}; //Arduino Mac address
-IPAddress ip      (192, 168, 0, 4); //Arduino IP address for static IP assignment
-IPAddress server  (192, 168, 0, 170); //set to MQTT host server domain or IP
+IPAddress ip = (192, 168, 0, 4); //Arduino IP address for static IP assignment
+IPAddress server = (192, 168, 0, 170); //set to MQTT host server domain or IP
 char message_buff[100]; // this buffers our incoming messages so we can do something on certain commands
 
 EthernetClient ethClient;
